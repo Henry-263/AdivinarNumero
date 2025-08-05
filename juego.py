@@ -37,8 +37,15 @@ def iniciar_juego():
 
 
             if event.type == pygame.KEYDOWN and enter == False and mostrarTexto == False:
-                if event.key == pygame.K_RETURN:
+                if event.key == pygame.K_RETURN and texto == "":
+                    texto = ""
+                elif event.key == pygame.K_RETURN and int(texto) <= 100:
                     enter = True
+                elif event.key == pygame.K_RETURN and int(texto) >= 100:
+                    mostrarTexto = True
+                    respuesta = ["El numero tiene que estar,", "entre el 1 y el 100"]
+                    inicio_tiempo = pygame.time.get_ticks()
+                    texto = ""
                 elif event.key == pygame.K_BACKSPACE:
                     if texto != "":
                         texto = texto[:-1]
