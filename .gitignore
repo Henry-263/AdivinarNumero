@@ -1,0 +1,16 @@
+# Entorno virtual
+.venv/
+
+# Configuración de PyCharm / IntelliJ
+.idea/
+*.iml
+
+# Cachés de Python
+__pycache__/
+*.pyc
+
+# Archivos de entorno
+.env
+
+# Otros
+.DS_Store
