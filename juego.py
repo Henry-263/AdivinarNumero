@@ -37,19 +37,23 @@ def iniciar_juego():
 
 
             if event.type == pygame.KEYDOWN and enter == False and mostrarTexto == False:
-                if event.key == pygame.K_RETURN and texto == "":
-                    texto = ""
-                elif event.key == pygame.K_RETURN and int(texto) <= 100:
-                    enter = True
-                elif event.key == pygame.K_RETURN and int(texto) >= 100:
+                if event.key == pygame.K_RETURN and texto.isdigit():
+                    if int(texto) <= 100 and int(texto) > 0:
+                        enter = True
+                    else:
+                        mostrarTexto = True
+                        respuesta = ["El numero tiene que estar,", "entre el 1 y el 100"]
+                        inicio_tiempo = pygame.time.get_ticks()
+                        texto = ""
+                elif event.key == pygame.K_RETURN and texto == "":
                     mostrarTexto = True
-                    respuesta = ["El numero tiene que estar,", "entre el 1 y el 100"]
+                    respuesta = ["El numero no es valido"]
                     inicio_tiempo = pygame.time.get_ticks()
                     texto = ""
-                elif event.key == pygame.K_BACKSPACE:
+                if event.key == pygame.K_BACKSPACE:
                     if texto != "":
                         texto = texto[:-1]
-                elif event.unicode.isdigit():
+                if event.unicode.isdigit():
                     texto += event.unicode  #Añadimos si solo es un numero
 
 
