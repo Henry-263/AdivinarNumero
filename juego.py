@@ -17,7 +17,7 @@ def iniciar_juego():
     clock = pygame.time.Clock()
 
     num = random.randint(1, 100)
-    pregunta = "Adivina un numero del 1 al 100: " + str(num)
+    pregunta = "Adivina un numero del 1 al 100: "
     texto = ""
     num_intentos = 5
     run = True
