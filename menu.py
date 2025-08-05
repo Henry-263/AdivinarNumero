@@ -1,4 +1,6 @@
 import pygame
+import os
+import recursos
 from juego import iniciar_juego
 
 
@@ -10,8 +12,10 @@ anchura = 800
 screen = pygame.display.set_mode((anchura, altura))
 pygame.display.set_caption("Menu")
 
-font_normal = pygame.font.SysFont('Comic Sans MS', 20)
-font_grande = pygame.font.SysFont('Comic Sans MS', 36)
+
+ruta_fondo = os.path.join("Assets", "Fondo.png")
+fondo = pygame.image.load(ruta_fondo)
+fondo = pygame.transform.scale(fondo, (anchura, altura))
 
 clock = pygame.time.Clock()
 
@@ -22,10 +26,10 @@ texto = ["Dale enter para jugar"]
 listoParaJugar = True
 while active:
 
-    screen.fill((30, 30, 30))
+    screen.blit(fondo, (0, 0))
 
     for i, linea in enumerate(texto):
-        texto_menu = font_grande.render(linea, True, (255, 255, 255))
+        texto_menu = recursos.font_grande.render(linea, True, (255, 255, 255))
         screen.blit(texto_menu, (200, 200 + i * 40))
 
 
@@ -37,8 +41,10 @@ while active:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN and listoParaJugar:
                 listoParaJugar = False
-                ganar = iniciar_juego() #Iniciamos el juego que se situa en otro codigo
-                if ganar:
+                ganar = iniciar_juego(fondo) #Iniciamos el juego que se situa en otro codigo
+                if  ganar is None:
+                    active = False
+                elif ganar:
                     texto = ["Felicidades has ganado"]
                 else:
                     texto = ["Te has quedado sin intentos,", "has perdido"]

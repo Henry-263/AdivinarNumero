@@ -1,8 +1,9 @@
 import pygame
 import random
+import recursos
 
 
-def iniciar_juego():
+def iniciar_juego(fondo):
     pygame.init()
 
     altura = 600
@@ -11,8 +12,7 @@ def iniciar_juego():
     screen = pygame.display.set_mode((anchura, altura))
     pygame.display.set_caption("Juego de adivinar un numero")
 
-    font_normal = pygame.font.SysFont('Comic Sans MS', 20)
-    font_grande = pygame.font.SysFont('Comic Sans MS', 36)
+
 
     clock = pygame.time.Clock()
 
@@ -29,11 +29,12 @@ def iniciar_juego():
     ganar = False
 
     while run:
-        screen.fill((30, 30, 30))
+        screen.blit(fondo, (0, 0))
         #Bucle donde miramos si ha habido algun evento
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                return None
 
 
             if event.type == pygame.KEYDOWN and enter == False and mostrarTexto == False:
@@ -50,18 +51,18 @@ def iniciar_juego():
 
         if mostrarTexto and pygame.time.get_ticks()-inicio_tiempo < espera_entre_respuestas:
             for i, linea in enumerate(respuesta):
-                respuesta_txt = font_grande.render(linea, True, (255, 255, 255))
+                respuesta_txt = recursos.font_grande.render(linea, True, (255, 255, 255))
                 screen.blit(respuesta_txt, (200, 200+i*40))
 
         if pygame.time.get_ticks()-inicio_tiempo >= espera_entre_respuestas:
             mostrarTexto = False
 
         #Texto de pregunta
-        pregunta_txt = font_normal.render(pregunta, True, (255, 255, 255))
-        screen.blit(pregunta_txt, (250, 0))
+        pregunta_txt = recursos.font_normal.render(pregunta, True, (255, 255, 255))
+        screen.blit(pregunta_txt, (250, 100))
 
-        input_txt = font_normal.render(texto, True, (255, 255, 255))
-        screen.blit(input_txt, (250, 30))
+        input_txt = recursos.font_normal.render(texto, True, (255, 255, 255))
+        screen.blit(input_txt, (250, 130))
 
         if enter == True and texto != "":
             if int(texto) == num:
