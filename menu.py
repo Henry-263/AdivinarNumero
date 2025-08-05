@@ -6,16 +6,8 @@ from juego import iniciar_juego
 
 pygame.init()
 
-altura = 600
-anchura = 800
-
-screen = pygame.display.set_mode((anchura, altura))
-pygame.display.set_caption("Menu")
-
-
-ruta_fondo = os.path.join("Assets", "Fondo.png")
-fondo = pygame.image.load(ruta_fondo)
-fondo = pygame.transform.scale(fondo, (anchura, altura))
+screen = pygame.display.set_mode((recursos.anchura, recursos.altura))
+pygame.display.set_caption(recursos.nombre_ventana)
 
 clock = pygame.time.Clock()
 
@@ -24,13 +16,15 @@ ganar = False
 active = True
 texto = ["Dale enter para jugar"]
 listoParaJugar = True
+
+
 while active:
 
-    screen.blit(fondo, (0, 0))
+    screen.blit(recursos.fondo, (0, 0))
 
     for i, linea in enumerate(texto):
-        texto_menu = recursos.font_grande.render(linea, True, (255, 255, 255))
-        screen.blit(texto_menu, (200, 200 + i * 40))
+        texto_menu = recursos.font_grande.render(linea, True, (0, 0, 0))
+        screen.blit(texto_menu, (recursos.anchura // 2 - texto_menu.get_width() // 2, 200 + i * 40))
 
 
     for event in pygame.event.get():
@@ -41,7 +35,7 @@ while active:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN and listoParaJugar:
                 listoParaJugar = False
-                ganar = iniciar_juego(fondo) #Iniciamos el juego que se situa en otro codigo
+                ganar = iniciar_juego() #Iniciamos el juego que se situa en otro codigo
                 if  ganar is None:
                     active = False
                 elif ganar:

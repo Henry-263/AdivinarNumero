@@ -3,14 +3,13 @@ import random
 import recursos
 
 
-def iniciar_juego(fondo):
+def iniciar_juego():
     pygame.init()
 
-    altura = 600
-    anchura = 800
 
-    screen = pygame.display.set_mode((anchura, altura))
-    pygame.display.set_caption("Juego de adivinar un numero")
+
+    screen = pygame.display.set_mode((recursos.anchura, recursos.altura))
+    pygame.display.set_caption(recursos.nombre_ventana)
 
 
 
@@ -29,7 +28,7 @@ def iniciar_juego(fondo):
     ganar = False
 
     while run:
-        screen.blit(fondo, (0, 0))
+        screen.blit(recursos.fondo, (0, 0))
         #Bucle donde miramos si ha habido algun evento
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -51,18 +50,18 @@ def iniciar_juego(fondo):
 
         if mostrarTexto and pygame.time.get_ticks()-inicio_tiempo < espera_entre_respuestas:
             for i, linea in enumerate(respuesta):
-                respuesta_txt = recursos.font_grande.render(linea, True, (255, 255, 255))
-                screen.blit(respuesta_txt, (200, 200+i*40))
+                respuesta_txt = recursos.font_grande.render(linea, True, (0, 0, 0))
+                screen.blit(respuesta_txt, (recursos.anchura // 2 - respuesta_txt.get_width() // 2, 200+i*40))
 
         if pygame.time.get_ticks()-inicio_tiempo >= espera_entre_respuestas:
             mostrarTexto = False
 
         #Texto de pregunta
-        pregunta_txt = recursos.font_normal.render(pregunta, True, (255, 255, 255))
-        screen.blit(pregunta_txt, (250, 100))
+        pregunta_txt = recursos.font_normal.render(pregunta, True, (0, 0, 0))
+        screen.blit(pregunta_txt, (recursos.anchura // 2 - pregunta_txt.get_width() // 2, 100))
 
-        input_txt = recursos.font_normal.render(texto, True, (255, 255, 255))
-        screen.blit(input_txt, (250, 130))
+        input_txt = recursos.font_normal.render(texto, True, (0, 0, 0))
+        screen.blit(input_txt, (recursos.anchura // 2 - input_txt.get_width() // 2, 130))
 
         if enter == True and texto != "":
             if int(texto) == num:
