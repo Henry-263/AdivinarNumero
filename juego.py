@@ -68,11 +68,11 @@ def iniciar_juego():
             mostrarTexto = False
 
         #Texto de pregunta
-        pregunta_txt = recursos.font_normal.render(pregunta, True, (0, 0, 0))
+        pregunta_txt = recursos.font_grande.render(pregunta, True, (0, 0, 0))
         screen.blit(pregunta_txt, (recursos.anchura // 2 - pregunta_txt.get_width() // 2, 100))
 
-        input_txt = recursos.font_normal.render(texto, True, (0, 0, 0))
-        screen.blit(input_txt, (recursos.anchura // 2 - input_txt.get_width() // 2, 130))
+        input_txt = recursos.font_grande.render(texto, True, (0, 0, 0))
+        screen.blit(input_txt, (recursos.anchura // 2 - input_txt.get_width() // 2, 200))
 
         if enter == True and texto != "":
             if int(texto) == num:
