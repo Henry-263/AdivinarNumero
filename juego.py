@@ -3,7 +3,7 @@ import random
 import recursos
 
 
-def iniciar_juego():
+def iniciar_juego( num_intentos):
     pygame.init()
 
 
@@ -18,7 +18,6 @@ def iniciar_juego():
     num = random.randint(1, 100)
     pregunta = "Adivina un numero del 1 al 100: "
     texto = ""
-    num_intentos = 5
     run = True
     respuesta = []
     enter = False
