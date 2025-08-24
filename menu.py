@@ -49,9 +49,10 @@ color_texto = [0, 0, 0]
 color_boton = [200, 200, 200]
 elegir_nivel = False
 
+boton_menu = Boton("Jugar",(recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 boton_facil = Boton("Facil", (recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_medio = Boton("Medio", (recursos.anchura//2, 250), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_dificil = Boton("Dificil", (recursos.anchura//2, 300), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_medio = Boton("Medio", (recursos.anchura//2, 275), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_dificil = Boton("Dificil", (recursos.anchura//2, 350), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 
 while active:
 
@@ -62,11 +63,11 @@ while active:
 
     for i, linea in enumerate(texto):
         texto_menu = recursos.font_grande.render(linea, True, (color_texto[0], color_texto[1], color_texto[2]))
-        boton_menu = texto_menu.get_rect(center=(recursos.anchura//2, 200 + i * 40 ))
+        rectTexto = texto_menu.get_rect(center=(recursos.anchura//2, 200 + i * 40 ))
+        screen.blit(texto_menu, rectTexto)
 
-        if listoParaJugar == True and not elegir_nivel:
-            pygame.draw.rect(screen, (color_boton[0], color_boton[1], color_boton[2]), boton_menu.inflate(20, 20), border_radius=10)
-        screen.blit(texto_menu, boton_menu)
+    if listoParaJugar == True and not elegir_nivel:
+        boton_menu.dibujar(screen)
 
     if elegir_nivel == True:
         boton_facil.dibujar(screen)
@@ -79,11 +80,10 @@ while active:
             active = False
 
 
-        if boton_menu.collidepoint(mouse) and listoParaJugar and click[0]:
+        if boton_menu.click() and listoParaJugar and not elegir_nivel:
             elegir_nivel = True
 
-
-        if boton_facil.click() and elegir_nivel:
+        elif boton_facil.click() and elegir_nivel:
             listoParaJugar = False
             ganar = iniciar_juego(7) #Iniciamos el juego que se situa en otro codigo
             elegir_nivel = False
@@ -116,7 +116,7 @@ while active:
 
         if boton_dificil.click() and elegir_nivel:
             listoParaJugar = False
-            ganar = iniciar_juego(3) #Iniciamos el juego que se situa en otro codigo
+            ganar = iniciar_juego(3)
             elegir_nivel = False
             if ganar is None:
                 active = False
@@ -129,20 +129,11 @@ while active:
                 color_texto = [255, 0, 0]
             inicio_tiempo = pygame.time.get_ticks()
 
-        if listoParaJugar:
-            if boton_menu.collidepoint(mouse):
-                color_texto = [100, 100, 100]
-                color_boton = [200, 160, 120]
-            else:
-                color_texto = [0, 0, 0]
-                color_boton = [160, 120, 80]
+
 
     if pygame.time.get_ticks() - inicio_tiempo > 3000:
         texto = ["Jugar"]
         listoParaJugar = True
-
-
-
 
     pygame.display.flip()
     clock.tick(60)
