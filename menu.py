@@ -49,6 +49,7 @@ color_texto = [0, 0, 0]
 color_boton = [200, 200, 200]
 elegir_nivel = False
 
+boton_salir = Boton("Salir",(recursos.anchura//2, 270), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 boton_menu = Boton("Jugar",(recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 boton_facil = Boton("Facil", (recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 boton_medio = Boton("Medio", (recursos.anchura//2, 275), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
@@ -66,8 +67,9 @@ while active:
         rectTexto = texto_menu.get_rect(center=(recursos.anchura//2, 200 + i * 40 ))
         screen.blit(texto_menu, rectTexto)
 
-    if listoParaJugar == True and not elegir_nivel:
+    if listoParaJugar and not elegir_nivel:
         boton_menu.dibujar(screen)
+        boton_salir.dibujar(screen)
 
     if elegir_nivel == True:
         boton_facil.dibujar(screen)
@@ -76,14 +78,15 @@ while active:
 
     for event in pygame.event.get():
 
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or boton_salir.click():
             active = False
 
 
         if boton_menu.click() and listoParaJugar and not elegir_nivel:
             elegir_nivel = True
+            inicio_tiempo = pygame.time.get_ticks()
 
-        elif boton_facil.click() and elegir_nivel:
+        if boton_facil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
             listoParaJugar = False
             ganar = iniciar_juego(7) #Iniciamos el juego que se situa en otro codigo
             elegir_nivel = False
@@ -98,7 +101,7 @@ while active:
                 color_texto = [255, 0, 0]
             inicio_tiempo = pygame.time.get_ticks()
 
-        if boton_medio.click() and elegir_nivel:
+        if boton_medio.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
             listoParaJugar = False
             ganar = iniciar_juego(5) #Iniciamos el juego que se situa en otro codigo
             elegir_nivel = False
@@ -114,7 +117,7 @@ while active:
             inicio_tiempo = pygame.time.get_ticks()
 
 
-        if boton_dificil.click() and elegir_nivel:
+        if boton_dificil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
             listoParaJugar = False
             ganar = iniciar_juego(3)
             elegir_nivel = False

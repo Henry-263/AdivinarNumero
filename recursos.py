@@ -11,7 +11,7 @@ nombre_ventana = "Juego de adivinar un numero"
 ruta_fuente = os.path.join("Assets", "Fonts", "GODOFWAR.ttf")
 
 font_normal = pygame.font.Font(ruta_fuente, 20)
-font_grande = pygame.font.Font(ruta_fuente, 40)
+font_grande = pygame.font.Font(ruta_fuente, 38)
 
 ruta_fondo = os.path.join("Assets", "Fondo.png")
 fondo = pygame.image.load(ruta_fondo)
