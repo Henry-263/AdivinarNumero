@@ -27,8 +27,8 @@ color_texto = [0, 0, 0]
 color_boton = [200, 200, 200]
 elegir_nivel = False
 
-boton_estadisticas = recursos.Boton("Estadisticas",(recursos.anchura//2, 340), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_salir = recursos.Boton("Salir",(recursos.anchura//2, 270), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_estadisticas = recursos.Boton("Estadisticas",(recursos.anchura//2, 270), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_salir = recursos.Boton("Salir",(recursos.anchura//2, 340), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 boton_menu = recursos.Boton("Jugar",(recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 boton_facil = recursos.Boton("Facil", (recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 boton_medio = recursos.Boton("Medio", (recursos.anchura//2, 275), (200, 200, 200), (230, 230, 230), (0, 0, 0) )

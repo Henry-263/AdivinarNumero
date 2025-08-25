@@ -10,9 +10,11 @@ def mirarEstadisticas(ganadas, perdidas):
 
     screen = pygame.display.set_mode((recursos.anchura, recursos.altura))
     pygame.display.set_caption(recursos.nombre_ventana)
-
-    porcentaje = int(ganadas) / (int(ganadas) + int(perdidas)) * 100
-    porcentaje = round(porcentaje, 2)
+    if int(ganadas)+int(perdidas) != 0:
+        porcentaje = int(ganadas) / (int(ganadas) + int(perdidas)) * 100
+        porcentaje = round(porcentaje, 2)
+    else:
+        porcentaje = 0
     run = True
     texto = ("Ganadas: " + str(ganadas), "Perdidas: " + str(perdidas), "Porcentaje de victorias: " + str(porcentaje) + "%")
 
