@@ -2,35 +2,7 @@ import pygame
 import os
 import recursos
 from juego import iniciar_juego
-
-class Boton:
-    def __init__(self, texto, pos, color_normal=(200, 200, 200), color_hover=(230, 230, 230), color_texto=(0, 0, 0)):
-        self.texto = texto
-        self.pos = pos
-        self.color_normal = color_normal
-        self.color_hover = color_hover
-        self.color_texto = color_texto
-        self.font = recursos.font_grande
-
-        self.texto_render = self.font.render(self.texto, True, self.color_texto)
-        self.rect = self.texto_render.get_rect(center=pos)
-
-    def dibujar(self, screen):
-
-        mouse = pygame.mouse.get_pos()
-        if self.rect.collidepoint(mouse):
-            color_fondo = self.color_hover
-        else:
-            color_fondo = self.color_normal
-
-        pygame.draw.rect(screen, color_fondo, self.rect.inflate(20, 20), border_radius=10)
-        screen.blit(self.texto_render, self.rect)
-
-    def click(self):
-        """Devuelve True si se hace click sobre el botón"""
-        mouse = pygame.mouse.get_pos()
-        click = pygame.mouse.get_pressed()
-        return self.rect.collidepoint(mouse) and click[0]
+from mostrarEstadisticas import mirarEstadisticas
 
 
 pygame.init()
@@ -39,6 +11,12 @@ screen = pygame.display.set_mode((recursos.anchura, recursos.altura))
 pygame.display.set_caption(recursos.nombre_ventana)
 
 clock = pygame.time.Clock()
+
+estadisticas = open("estadisticas.txt", "r")
+ganadas = estadisticas.readline().strip()
+perdidas = estadisticas.readline().strip()
+
+estadisticas.close()
 
 inicio_tiempo = 0
 ganar = False
@@ -49,18 +27,17 @@ color_texto = [0, 0, 0]
 color_boton = [200, 200, 200]
 elegir_nivel = False
 
-boton_salir = Boton("Salir",(recursos.anchura//2, 270), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_menu = Boton("Jugar",(recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_facil = Boton("Facil", (recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_medio = Boton("Medio", (recursos.anchura//2, 275), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_dificil = Boton("Dificil", (recursos.anchura//2, 350), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_estadisticas = recursos.Boton("Estadisticas",(recursos.anchura//2, 340), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_salir = recursos.Boton("Salir",(recursos.anchura//2, 270), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_menu = recursos.Boton("Jugar",(recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_facil = recursos.Boton("Facil", (recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_medio = recursos.Boton("Medio", (recursos.anchura//2, 275), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_dificil = recursos.Boton("Dificil", (recursos.anchura//2, 350), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 
 while active:
 
     screen.blit(recursos.fondo, (0, 0))
 
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
 
     for i, linea in enumerate(texto):
         texto_menu = recursos.font_grande.render(linea, True, (color_texto[0], color_texto[1], color_texto[2]))
@@ -68,6 +45,7 @@ while active:
         screen.blit(texto_menu, rectTexto)
 
     if listoParaJugar and not elegir_nivel:
+        boton_estadisticas.dibujar(screen)
         boton_menu.dibujar(screen)
         boton_salir.dibujar(screen)
 
@@ -80,6 +58,11 @@ while active:
 
         if event.type == pygame.QUIT or boton_salir.click():
             active = False
+
+        if boton_estadisticas.click() and not elegir_nivel:
+            valor = mirarEstadisticas(ganadas, perdidas)
+            if valor is None:
+                active = False
 
 
         if boton_menu.click() and listoParaJugar and not elegir_nivel:
@@ -95,25 +78,29 @@ while active:
             elif ganar:
                 texto = ["Felicidades has ganado"]
                 color_texto = [0, 143, 57]
+                ganadas = int(ganadas) + 1
 
             else:
                 texto = ["Te has quedado sin intentos,", "has perdido"]
                 color_texto = [255, 0, 0]
+                perdidas = int(perdidas) + 1
             inicio_tiempo = pygame.time.get_ticks()
 
         if boton_medio.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
             listoParaJugar = False
-            ganar = iniciar_juego(5) #Iniciamos el juego que se situa en otro codigo
+            ganar = iniciar_juego(5)
             elegir_nivel = False
             if ganar is None:
                 active = False
             elif ganar:
                 texto = ["Felicidades has ganado"]
                 color_texto = [0, 143, 57]
+                ganadas = int(ganadas) + 1
 
             else:
                 texto = ["Te has quedado sin intentos,", "has perdido"]
                 color_texto = [255, 0, 0]
+                perdidas = int(perdidas) + 1
             inicio_tiempo = pygame.time.get_ticks()
 
 
@@ -126,10 +113,12 @@ while active:
             elif ganar:
                 texto = ["Felicidades has ganado"]
                 color_texto = [0, 143, 57]
+                ganadas = int(ganadas) + 1
 
             else:
                 texto = ["Te has quedado sin intentos,", "has perdido"]
                 color_texto = [255, 0, 0]
+                perdidas = int(perdidas) + 1
             inicio_tiempo = pygame.time.get_ticks()
 
 
@@ -140,5 +129,9 @@ while active:
 
     pygame.display.flip()
     clock.tick(60)
+
+with open("estadisticas.txt", "w") as estadisticas:
+    estadisticas.write(str(ganadas) + "\n")
+    estadisticas.write(str(perdidas))
 
 pygame.quit()
