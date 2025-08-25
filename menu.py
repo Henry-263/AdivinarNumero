@@ -12,11 +12,13 @@ pygame.display.set_caption(recursos.nombre_ventana)
 
 clock = pygame.time.Clock()
 
-estadisticas = open("estadisticas.txt", "r")
-ganadas = estadisticas.readline().strip()
-perdidas = estadisticas.readline().strip()
+if not os.path.exists("estadisticas.txt"):
+    with open("estadisticas.txt", "w") as f:
+        f.write("0\n0")
 
-estadisticas.close()
+with open("estadisticas.txt", "r") as estadisticas:
+    ganadas = estadisticas.readline().strip()
+    perdidas = estadisticas.readline().strip()
 
 inicio_tiempo = 0
 ganar = False
@@ -56,7 +58,10 @@ while active:
 
     for event in pygame.event.get():
 
-        if event.type == pygame.QUIT or boton_salir.click():
+        if event.type == pygame.QUIT:
+            active = False
+
+        if boton_salir.click() and not elegir_nivel:
             active = False
 
         if boton_estadisticas.click() and not elegir_nivel:
