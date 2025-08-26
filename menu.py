@@ -1,5 +1,4 @@
 import pygame
-import winsound
 import os
 import recursos
 from juego import iniciar_juego
