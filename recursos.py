@@ -7,7 +7,7 @@ altura = 600
 anchura = 800
 
 nombre_ventana = "Juego de adivinar un numero"
-
+mouse_sound = pygame.mixer.Sound("Assets/sonido_mouse.mp3")
 ruta_fuente = os.path.join("Assets", "Fonts", "GODOFWAR.ttf")
 
 font_normal = pygame.font.Font(ruta_fuente, 20)

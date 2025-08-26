@@ -38,6 +38,7 @@ def mirarEstadisticas(ganadas, perdidas):
                 return None
 
             if boton_volver.click():
+                recursos.mouse_sound.play()
                 run = False
                 return 1
 

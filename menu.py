@@ -1,4 +1,5 @@
 import pygame
+import winsound
 import os
 import recursos
 from juego import iniciar_juego
@@ -59,22 +60,29 @@ while active:
     for event in pygame.event.get():
 
         if event.type == pygame.QUIT:
+
             active = False
 
         if boton_salir.click() and not elegir_nivel:
+            recursos.mouse_sound.play()
+            pygame.time.delay(200)
             active = False
 
         if boton_estadisticas.click() and not elegir_nivel:
+            recursos.mouse_sound.play()
             valor = mirarEstadisticas(ganadas, perdidas)
             if valor is None:
                 active = False
+            pygame.time.delay(100)
 
 
         if boton_menu.click() and listoParaJugar and not elegir_nivel:
+            recursos.mouse_sound.play()
             elegir_nivel = True
             inicio_tiempo = pygame.time.get_ticks()
 
         if boton_facil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
+            recursos.mouse_sound.play()
             listoParaJugar = False
             ganar = iniciar_juego(7) #Iniciamos el juego que se situa en otro codigo
             elegir_nivel = False
@@ -92,6 +100,7 @@ while active:
             inicio_tiempo = pygame.time.get_ticks()
 
         if boton_medio.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
+            recursos.mouse_sound.play()
             listoParaJugar = False
             ganar = iniciar_juego(5)
             elegir_nivel = False
@@ -110,6 +119,7 @@ while active:
 
 
         if boton_dificil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
+            recursos.mouse_sound.play()
             listoParaJugar = False
             ganar = iniciar_juego(3)
             elegir_nivel = False
