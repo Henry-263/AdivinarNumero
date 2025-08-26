@@ -36,6 +36,7 @@ boton_menu = recursos.Boton("Jugar",(recursos.anchura//2, 200), (200, 200, 200),
 boton_facil = recursos.Boton("Facil", (recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 boton_medio = recursos.Boton("Medio", (recursos.anchura//2, 275), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
 boton_dificil = recursos.Boton("Dificil", (recursos.anchura//2, 350), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_volver = recursos.Boton("Volver", (recursos.anchura//2, 425), (200, 200, 200), (230, 230, 230), (0, 0, 0))
 
 while active:
 
@@ -53,6 +54,7 @@ while active:
         boton_salir.dibujar(screen)
 
     if elegir_nivel == True:
+        boton_volver.dibujar(screen)
         boton_facil.dibujar(screen)
         boton_medio.dibujar(screen)
         boton_dificil.dibujar(screen)
@@ -80,6 +82,11 @@ while active:
             recursos.mouse_sound.play()
             elegir_nivel = True
             inicio_tiempo = pygame.time.get_ticks()
+
+        if boton_volver.click() and elegir_nivel:
+            recursos.mouse_sound.play()
+            elegir_nivel = False
+            listoParaJugar = True
 
         if boton_facil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
             recursos.mouse_sound.play()
