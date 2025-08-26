@@ -3,15 +3,16 @@ import os
 
 pygame.init()
 
-altura = 600
-anchura = 800
+info = pygame.display.Info()
+altura = info.current_h
+anchura = info.current_w
 
 nombre_ventana = "Juego de adivinar un numero"
 mouse_sound = pygame.mixer.Sound("Assets/sonido_mouse.mp3")
 ruta_fuente = os.path.join("Assets", "Fonts", "GODOFWAR.ttf")
 
-font_normal = pygame.font.Font(ruta_fuente, 20)
-font_grande = pygame.font.Font(ruta_fuente, 38)
+font_normal = pygame.font.Font(ruta_fuente, altura//30)
+font_grande = pygame.font.Font(ruta_fuente, altura//16)
 
 ruta_fondo = os.path.join("Assets", "Fondo.png")
 fondo = pygame.image.load(ruta_fondo)

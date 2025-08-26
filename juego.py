@@ -61,17 +61,17 @@ def iniciar_juego( num_intentos):
         if mostrarTexto and pygame.time.get_ticks()-inicio_tiempo < espera_entre_respuestas:
             for i, linea in enumerate(respuesta):
                 respuesta_txt = recursos.font_grande.render(linea, True, (0, 0, 0))
-                screen.blit(respuesta_txt, (recursos.anchura // 2 - respuesta_txt.get_width() // 2, 200+i*40))
+                screen.blit(respuesta_txt, (recursos.anchura // 2 - respuesta_txt.get_width() // 2, recursos.altura/3+i*(recursos.altura/15)))
 
         if pygame.time.get_ticks()-inicio_tiempo >= espera_entre_respuestas:
             mostrarTexto = False
 
         #Texto de pregunta
         pregunta_txt = recursos.font_grande.render(pregunta, True, (0, 0, 0))
-        screen.blit(pregunta_txt, (recursos.anchura // 2 - pregunta_txt.get_width() // 2, 100))
+        screen.blit(pregunta_txt, (recursos.anchura // 2 - pregunta_txt.get_width() // 2, recursos.altura/6))
 
         input_txt = recursos.font_grande.render(texto, True, (0, 0, 0))
-        screen.blit(input_txt, (recursos.anchura // 2 - input_txt.get_width() // 2, 200))
+        screen.blit(input_txt, (recursos.anchura // 2 - input_txt.get_width() // 2, recursos.altura/3))
 
         if enter == True and texto != "":
             if int(texto) == num:

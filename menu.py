@@ -24,19 +24,19 @@ with open("estadisticas.txt", "r") as estadisticas:
 inicio_tiempo = 0
 ganar = False
 active = True
-texto = ["Jugar"]
+texto = [""]
 listoParaJugar = True
 color_texto = [0, 0, 0]
 color_boton = [200, 200, 200]
 elegir_nivel = False
 
-boton_estadisticas = recursos.Boton("Estadisticas",(recursos.anchura//2, 270), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_salir = recursos.Boton("Salir",(recursos.anchura//2, 340), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_menu = recursos.Boton("Jugar",(recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_facil = recursos.Boton("Facil", (recursos.anchura//2, 200), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_medio = recursos.Boton("Medio", (recursos.anchura//2, 275), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_dificil = recursos.Boton("Dificil", (recursos.anchura//2, 350), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_volver = recursos.Boton("Volver", (recursos.anchura//2, 425), (200, 200, 200), (230, 230, 230), (0, 0, 0))
+boton_estadisticas = recursos.Boton("Estadisticas",(recursos.anchura//2, recursos.altura/2.2), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_salir = recursos.Boton("Salir",(recursos.anchura//2, recursos.altura/1.76), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_menu = recursos.Boton("Jugar",(recursos.anchura//2, recursos.altura/3), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_facil = recursos.Boton("Facil", (recursos.anchura//2, recursos.altura/3), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_medio = recursos.Boton("Medio", (recursos.anchura//2, recursos.altura/2.18), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_dificil = recursos.Boton("Dificil", (recursos.anchura//2, recursos.altura/1.71), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+boton_volver = recursos.Boton("Volver", (recursos.anchura//2, recursos.altura/1.41), (200, 200, 200), (230, 230, 230), (0, 0, 0))
 
 while active:
 
@@ -45,7 +45,7 @@ while active:
 
     for i, linea in enumerate(texto):
         texto_menu = recursos.font_grande.render(linea, True, (color_texto[0], color_texto[1], color_texto[2]))
-        rectTexto = texto_menu.get_rect(center=(recursos.anchura//2, 200 + i * 40 ))
+        rectTexto = texto_menu.get_rect(center=(recursos.anchura//2, recursos.altura/3 + i * (recursos.altura/15) ))
         screen.blit(texto_menu, rectTexto)
 
     if listoParaJugar and not elegir_nivel:
@@ -65,20 +65,21 @@ while active:
 
             active = False
 
-        if boton_salir.click() and not elegir_nivel:
+        if boton_salir.click() and not elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 100:
             recursos.mouse_sound.play()
             pygame.time.delay(200)
             active = False
 
-        if boton_estadisticas.click() and not elegir_nivel:
+        if boton_estadisticas.click() and not elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 100:
             recursos.mouse_sound.play()
             valor = mirarEstadisticas(ganadas, perdidas)
+            pygame.event.clear()
+            inicio_tiempo = pygame.time.get_ticks()
             if valor is None:
                 active = False
-            pygame.time.delay(100)
 
 
-        if boton_menu.click() and listoParaJugar and not elegir_nivel:
+        if boton_menu.click() and listoParaJugar and not elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 100:
             recursos.mouse_sound.play()
             elegir_nivel = True
             inicio_tiempo = pygame.time.get_ticks()
@@ -87,8 +88,9 @@ while active:
             recursos.mouse_sound.play()
             elegir_nivel = False
             listoParaJugar = True
+            pygame.time.delay(100)
 
-        if boton_facil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
+        if boton_facil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 100:
             recursos.mouse_sound.play()
             listoParaJugar = False
             ganar = iniciar_juego(7) #Iniciamos el juego que se situa en otro codigo
@@ -106,7 +108,7 @@ while active:
                 perdidas = int(perdidas) + 1
             inicio_tiempo = pygame.time.get_ticks()
 
-        if boton_medio.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
+        if boton_medio.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 100:
             recursos.mouse_sound.play()
             listoParaJugar = False
             ganar = iniciar_juego(5)
@@ -125,7 +127,7 @@ while active:
             inicio_tiempo = pygame.time.get_ticks()
 
 
-        if boton_dificil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 500:
+        if boton_dificil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 100:
             recursos.mouse_sound.play()
             listoParaJugar = False
             ganar = iniciar_juego(3)
@@ -146,7 +148,7 @@ while active:
 
 
     if pygame.time.get_ticks() - inicio_tiempo > 3000:
-        texto = ["Jugar"]
+        texto = [""]
         listoParaJugar = True
 
     pygame.display.flip()
