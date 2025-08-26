@@ -19,14 +19,14 @@ def mirarEstadisticas(ganadas, perdidas):
     texto = ("Ganadas: " + str(ganadas), "Perdidas: " + str(perdidas), "Porcentaje de victorias: " + str(porcentaje) + "%")
 
 
-    boton_volver = Boton("Volver",(recursos.anchura//2, 350), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
+    boton_volver = Boton("Volver",(recursos.anchura//2, recursos.altura/1.71), (173, 216, 230), (230, 230, 230), (0, 0, 0) )
 
     while run:
         screen.blit(recursos.fondo, (0, 0))
 
         for i, linea in enumerate(texto):
             texto_menu = recursos.font_grande.render(linea, True, (0, 0, 0))
-            rectTexto = texto_menu.get_rect(center=(recursos.anchura // 2, 200 + i * 40))
+            rectTexto = texto_menu.get_rect(center=(recursos.anchura // 2, recursos.altura/3 + i * (recursos.altura / 15)))
             screen.blit(texto_menu, rectTexto)
 
         boton_volver.dibujar(screen)

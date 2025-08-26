@@ -97,7 +97,7 @@ def iniciar_juego( num_intentos):
 
         if num_intentos == 0 and pygame.time.get_ticks()-inicio_tiempo >= espera_entre_respuestas:
             run = False
-            return ganar
+            return ganar, num
 
         pygame.display.flip()
         clock.tick(60)

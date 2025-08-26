@@ -29,14 +29,15 @@ listoParaJugar = True
 color_texto = [0, 0, 0]
 color_boton = [200, 200, 200]
 elegir_nivel = False
+num = 0
 
-boton_estadisticas = recursos.Boton("Estadisticas",(recursos.anchura//2, recursos.altura/2.2), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_salir = recursos.Boton("Salir",(recursos.anchura//2, recursos.altura/1.76), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_menu = recursos.Boton("Jugar",(recursos.anchura//2, recursos.altura/3), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_facil = recursos.Boton("Facil", (recursos.anchura//2, recursos.altura/3), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_medio = recursos.Boton("Medio", (recursos.anchura//2, recursos.altura/2.18), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_dificil = recursos.Boton("Dificil", (recursos.anchura//2, recursos.altura/1.71), (200, 200, 200), (230, 230, 230), (0, 0, 0) )
-boton_volver = recursos.Boton("Volver", (recursos.anchura//2, recursos.altura/1.41), (200, 200, 200), (230, 230, 230), (0, 0, 0))
+boton_estadisticas = recursos.Boton("Estadisticas",(recursos.anchura//2, recursos.altura/2.2), (173, 216, 230), (230, 230, 230), (0, 0, 0) )
+boton_salir = recursos.Boton("Salir",(recursos.anchura//2, recursos.altura/1.76), (173, 216, 230), (230, 230, 230), (0, 0, 0) )
+boton_menu = recursos.Boton("Jugar",(recursos.anchura//2, recursos.altura/3), (173, 216, 230), (230, 230, 230), (0, 0, 0) )
+boton_facil = recursos.Boton("Facil", (recursos.anchura//2, recursos.altura/3), (173, 216, 230), (230, 230, 230), (0, 0, 0) )
+boton_medio = recursos.Boton("Medio", (recursos.anchura//2, recursos.altura/2.18), (173, 216, 230), (230, 230, 230), (0, 0, 0) )
+boton_dificil = recursos.Boton("Dificil", (recursos.anchura//2, recursos.altura/1.71), (173, 216, 230), (230, 230, 230), (0, 0, 0) )
+boton_volver = recursos.Boton("Volver", (recursos.anchura//2, recursos.altura/1.41), (173, 216, 230), (230, 230, 230), (0, 0, 0))
 
 while active:
 
@@ -93,7 +94,7 @@ while active:
         if boton_facil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 100:
             recursos.mouse_sound.play()
             listoParaJugar = False
-            ganar = iniciar_juego(7) #Iniciamos el juego que se situa en otro codigo
+            ganar, num = iniciar_juego(7) #Iniciamos el juego que se situa en otro codigo
             elegir_nivel = False
             if ganar is None:
                 active = False
@@ -103,7 +104,7 @@ while active:
                 ganadas = int(ganadas) + 1
 
             else:
-                texto = ["Te has quedado sin intentos,", "has perdido"]
+                texto = ["Te has quedado sin intentos,", "has perdido", "El numero era: " + str(num)]
                 color_texto = [255, 0, 0]
                 perdidas = int(perdidas) + 1
             inicio_tiempo = pygame.time.get_ticks()
@@ -111,7 +112,7 @@ while active:
         if boton_medio.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 100:
             recursos.mouse_sound.play()
             listoParaJugar = False
-            ganar = iniciar_juego(5)
+            ganar, num = iniciar_juego(5)
             elegir_nivel = False
             if ganar is None:
                 active = False
@@ -121,7 +122,7 @@ while active:
                 ganadas = int(ganadas) + 1
 
             else:
-                texto = ["Te has quedado sin intentos,", "has perdido"]
+                texto = ["Te has quedado sin intentos,", "has perdido", "El numero era: " + str(num)]
                 color_texto = [255, 0, 0]
                 perdidas = int(perdidas) + 1
             inicio_tiempo = pygame.time.get_ticks()
@@ -130,7 +131,7 @@ while active:
         if boton_dificil.click() and elegir_nivel and pygame.time.get_ticks() - inicio_tiempo > 100:
             recursos.mouse_sound.play()
             listoParaJugar = False
-            ganar = iniciar_juego(3)
+            ganar, num = iniciar_juego(3)
             elegir_nivel = False
             if ganar is None:
                 active = False
@@ -140,7 +141,7 @@ while active:
                 ganadas = int(ganadas) + 1
 
             else:
-                texto = ["Te has quedado sin intentos,", "has perdido"]
+                texto = ["Te has quedado sin intentos,", "has perdido", "El numero era: " + str(num)]
                 color_texto = [255, 0, 0]
                 perdidas = int(perdidas) + 1
             inicio_tiempo = pygame.time.get_ticks()
